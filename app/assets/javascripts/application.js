@@ -19,10 +19,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
     el: '#app',
     data: {
       tasks: [
-        { name: '12 Push-ups', priority: 8},
-        { name: '25 Sit-ups', priority: 4},
-        { name: '50 Jumping-Jacks', priority: 5},
-        { name: '25 Squats', priority: 6}
+        { name: '12 Push-ups', priority: 8, completed: false},
+        { name: '25 Sit-ups', priority: 4, completed: false},
+        { name: '50 Jumping-Jacks', priority: 5, completed: false},
+        { name: '25 Squats', priority: 6, completed: false}
       ],
       newTask: "",
       newPriority: ""
@@ -34,17 +34,28 @@ document.addEventListener("DOMContentLoaded", function(event) {
     methods: { 
       addTask: function() {
         if (this.newTask) {
-          this.tasks.push({name: this.newTask, priority: this.newPriority});
+          this.tasks.push({name: this.newTask, priority: this.newPriority, completed: false});
           this.newTask = "";
           this.newPriority = "";
         }
       },
-      removeTask: function() {
-        this.tasks.pop();
+      removeTasks: function(countTasks) {
+        for (var j = 0; j < countTasks.length; j++) {
+          var index = this.tasks.indexOf(countTasks[j]);
+          this.tasks.splice(index,1);
+        }
       },
-      checkDone: function(inputTask) {
-        var index = this.tasks.indexOf(inputTask);
-        this.tasks.splice(index,1);
+      checkDone: function(task) {
+        task.completed = !task.completed;
+      },
+      countTasks: function() {
+        var countArray = [];
+        for (var i = 0; i < this.tasks.length; i++) {
+          if (this.tasks[i]["completed"] === true) {
+            countArray.push(this.tasks[i]);
+          }
+        }
+        return countArray;
       }
 
     },

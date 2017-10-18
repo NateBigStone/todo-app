@@ -1,11 +1,12 @@
 <div id="app">
+You have {{(tasks.length - countTasks().length)}} tasks left
 <ul>
-  <li v-for="task in tasks" v-on:click="checkDone(task)">Task: {{ task.name }} - Priority: {{ task.priority }}</li>
+  <li v-for="task in tasks" v-on:click="checkDone(task)" v-bind:class="{strike: task.completed}">Task: {{ task.name }} - Priority: {{ task.priority }}</li>
   </ul>
 
 <br>
 Name of Task<input type="text" v-model="newTask" placeholder=""><br>
 Priority <input type="number" v-model="newPriority" placeholder=""><br>
 <button v-on:click="addTask()">Add Task</button><br>
-<button v-on:click="removeTask()">Remove Last Task</button>
+<button v-on:click="removeTasks(countTasks())">Delete All Completed Tasks</button>
 </div>
